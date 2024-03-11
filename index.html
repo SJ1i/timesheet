@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wage Calculator</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Timesheet</legend>
+            <ol id="timesheet">
+                <li class="header-row">
+                    <ol class="row">
+                        <li>Start Time</li>
+                        <li>End Time</li>
+                        <li>Total</li>
+                    </ol>
+                </li>
+                <li class="entry-row">
+                    <ol class="row">
+                        <li><input type="time"></li>
+                        <li><input type="time"></li>
+                        <li><input class="forDisplay" type="text" placeholder="00:00" readonly></li>
+                    </ol>
+                </li>
+            </ol>
+        </fieldset>
+    </form>
+    <script src="/script.js"></script>
+</body>
+</html>

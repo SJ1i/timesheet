@@ -1,0 +1,27 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.row {
+    display: flex;
+}
+
+.row > li {
+    flex: 1;
+}
+
+::placeholder {
+    text-align: center;
+}
