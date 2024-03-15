@@ -8,20 +8,50 @@ html {
     box-sizing: inherit;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
+
+fieldset {
+    width: 350px;
+}
+
 ol {
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style-type: none;
 }
 
-.row {
-    display: flex;
+input {
+    width: 90px;
+    border: 0;
 }
 
-.row > li {
-    flex: 1;
+input:focus {
+    outline: none;
 }
 
 ::placeholder {
     text-align: center;
+}
+
+/* form styling */
+#timesheet {
+    display: flex;
+}
+
+.column {
+    text-align: center;
+    flex: 1;
+}
+
+.header {
+    font-weight: bold;
+}
+
+.header,
+.content {
+    margin: 1px;
+    border: 1px solid black;
 }
