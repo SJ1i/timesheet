@@ -12,7 +12,7 @@
             <legend>Timesheet</legend>
             <ol id="timesheet">
                 <li class="column">
-                    <ol>
+                    <ol id="first-col">
                         <li class="header">Start Time</li>
                         <li class="content">
                             <input type="time" class="start">
@@ -20,7 +20,7 @@
                     </ol>
                 </li>
                 <li class="column">
-                    <ol>
+                    <ol id="second-col">
                         <li class="header">End Time</li>
                         <li class="content">
                             <input type="time" class="end">
@@ -28,7 +28,7 @@
                     </ol>
                 </li>
                 <li class="column">
-                    <ol>
+                    <ol id="third-col">
                         <li class="header">Total</li>
                         <li class="content">
                             <input type="text" class="total" placeholder="00:00" readonly>
@@ -37,6 +37,7 @@
                 </li>
             </ol>
         </fieldset>
+        <button>+</button>
     </form>
     <script src="./script.js"></script>
 </body>

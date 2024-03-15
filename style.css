@@ -13,10 +13,6 @@ body {
     justify-content: center;
 }
 
-fieldset {
-    width: 350px;
-}
-
 ol {
     margin: 0;
     padding: 0;
@@ -43,7 +39,6 @@ input:focus {
 
 .column {
     text-align: center;
-    flex: 1;
 }
 
 .header {
@@ -54,4 +49,9 @@ input:focus {
 .content {
     margin: 1px;
     border: 1px solid black;
+}
+
+button {
+    border-radius: 30%;
+    float: right;
 }
