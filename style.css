@@ -20,6 +20,7 @@ ol {
 }
 
 input {
+    text-align: center;
     width: 90px;
     border: 0;
 }
