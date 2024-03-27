@@ -1,4 +1,5 @@
 const columns = getColumns();
+const durations = [];
 
 const button = document.getElementsByTagName("button")[0];
 button.addEventListener("click", (event) => {
@@ -10,9 +11,10 @@ document.addEventListener("input", (event) => {
     let target = event.target;
     let flag = checkValue(target);
     if (flag[0]) {
-        let result = getResult(flag[1], target);
+        let result = getResult(flag[1], target, flag[2]);
         let display = columns[2].getElementsByTagName("input").item(flag[2]);
         display.value = result;
+        modifyCumulative();
     }
 });
 
@@ -27,16 +29,25 @@ function addRow() {
     let clones = rowClone();
     for (let i = 0; i < columns.length; i++) {
         columns[i].appendChild(clones[i]);
+        if (!durations[i]) {
+            durations[i] = {
+                "hr": 0,
+                "min": 0
+            }
+        }
     }
 }
 
 function rowClone(){
     return columns.map((col) => {
-        let clone = col.getElementsByTagName("li")[1].cloneNode(true);
-        let timeInput = clone.getElementsByTagName("input")[0];
-        timeInput.value = "";
-        timeInput.setAttribute("placeholder", "00:00");
-        return clone;
+        let cellClone = col.getElementsByTagName("li")[1].cloneNode(true);
+        cellClone.style = "";
+
+        let inputBox = cellClone.getElementsByTagName("input")[0];
+        inputBox.value = "";
+        inputBox.setAttribute("placeholder", "00:00");
+
+        return cellClone;
     });
 }
 
@@ -57,7 +68,7 @@ function checkValue(target) {
     }
 }
 
-function getResult(time1, target) {
+function getResult(time1, target, index) {
     let start = target.getAttribute("class") === "start" ? target.value : time1;
     let end = target.getAttribute("class") === "end" ? target.value : time1;
 
@@ -71,6 +82,10 @@ function getResult(time1, target) {
 
     if ((end[0] < start[0]) ||
         (end[0] === start[0] && end[1] < start[1])) {
+            durations[index] = {
+                "hr": 0,
+                "min": 0
+            }
             return "invalid time";
     }
 
@@ -80,7 +95,33 @@ function getResult(time1, target) {
         hrDiff -= 1;
         minDiff += 60;
     }
-    hrDiff = hrDiff === 0 ? hrDiff+"0" : hrDiff;
-    minDiff = minDiff === 0 ? minDiff+"0" : minDiff;
+
+    durations[index] = {
+        "hr": hrDiff,
+        "min": minDiff
+    };
+
+    hrDiff = hrDiff < 10 ? "0"+hrDiff : hrDiff;
+    minDiff = minDiff < 10 ? "0"+minDiff : minDiff;
     return `${hrDiff}:${minDiff}`;
+}
+
+function modifyCumulative() {
+    let display = document.getElementById("cumulative-time");
+    let resultHr = 0;
+    let resultMin = 0;
+
+    let amount = columns[2].getElementsByTagName("input").length;
+    for (let i = 0; i < amount; i++) {
+        resultHr+=durations[i].hr;
+        resultMin+=durations[i].min;
+        if (resultMin >= 60) {
+            resultHr++;
+            resultMin-=60;
+        }
+    }
+
+    resultHr = resultHr < 10 ? "0"+resultHr : resultHr;
+    resultMin = resultMin < 10 ? "0"+resultMin : resultMin;
+    display.textContent = `${resultHr}:${resultMin}`;
 }
