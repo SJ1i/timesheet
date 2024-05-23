@@ -125,3 +125,36 @@ function modifyCumulative() {
     resultMin = resultMin < 10 ? "0"+resultMin : resultMin;
     display.textContent = `${resultHr}:${resultMin}`;
 }
+
+document.addEventListener("keydown", (event) => {
+    let className = event.target.getAttribute("class");
+
+    if (event.code === "Tab" &&
+        (className === "start" || className === "end")) {
+        event.preventDefault();
+        let destination = getTabDestination(document.activeElement, className);
+        destination.focus();
+    }
+});
+
+function getTabDestination(focus, className) {
+    let focusColumn = undefined;
+    let destinationColumn = undefined;
+    let isEnd = false;
+
+    if (className === "start") {
+        focusColumn = columns[0];
+        destinationColumn = columns[1];
+    } else {
+        focusColumn = columns[1];
+        destinationColumn = columns[0];
+        isEnd = true;
+    }
+
+    let index = [...focusColumn.getElementsByTagName("input")].indexOf(focus);
+    if (isEnd) index++;
+    let destination = destinationColumn.getElementsByTagName("input").item(index);
+    if (!destination) destination = button;
+
+    return destination;
+}
