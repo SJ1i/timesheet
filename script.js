@@ -4,7 +4,10 @@ const durations = [];
 const button = document.getElementsByTagName("button")[0];
 button.addEventListener("click", (event) => {
     event.preventDefault();
-    addRow();
+    let clones = rowClone();
+    for (let i = 0; i < columns.length; i++) {
+        columns[i].appendChild(clones[i]);
+    }
 });
 
 document.addEventListener("input", (event) => {
@@ -23,19 +26,6 @@ function getColumns() {
     return columnsID.map((id) => {
         return document.getElementById(id);
     });
-}
-
-function addRow() {
-    let clones = rowClone();
-    for (let i = 0; i < columns.length; i++) {
-        columns[i].appendChild(clones[i]);
-        if (!durations[i]) {
-            durations[i] = {
-                "hr": 0,
-                "min": 0
-            }
-        }
-    }
 }
 
 function rowClone(){
@@ -113,11 +103,13 @@ function modifyCumulative() {
 
     let amount = columns[2].getElementsByTagName("input").length;
     for (let i = 0; i < amount; i++) {
-        resultHr+=durations[i].hr;
-        resultMin+=durations[i].min;
-        if (resultMin >= 60) {
-            resultHr++;
-            resultMin-=60;
+        if (durations[i]) {
+            resultHr+=durations[i].hr;
+            resultMin+=durations[i].min;
+            if (resultMin >= 60) {
+                resultHr++;
+                resultMin-=60;
+            }
         }
     }
 
